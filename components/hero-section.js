@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { Button } from './ui/button'
 import { ArrowRight, Award, BookOpen, Users } from 'lucide-react'
 import { createGlobalStyles } from '@/lib/styles'
+import Image from 'next/image';
 
 const HeroSection = () => {
   useEffect(() => {
@@ -59,7 +60,7 @@ const HeroSection = () => {
                     </svg>
                   </div>
                 </div>
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1625047509252-ab38fb7a8e4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
                   alt="Welding Demo" 
                   className="w-full h-full object-cover"

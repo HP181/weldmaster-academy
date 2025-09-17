@@ -16,6 +16,7 @@ import {
   CheckCircle2
 } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -115,7 +116,7 @@ export default function Home() {
                 )}
                 <div className="relative h-48 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
-                  <img 
+                  <Image
                     src={course.image} 
                     alt={course.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

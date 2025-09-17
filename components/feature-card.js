@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 import { ChevronRight } from 'lucide-react'
+import Image from 'next/image'
 
 const FeatureCard = ({ title, description, icon: Icon, image, reverse }) => {
   return (
@@ -20,7 +21,7 @@ const FeatureCard = ({ title, description, icon: Icon, image, reverse }) => {
         <div className="relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-[#ffc107] to-[#ff9800] opacity-30 rounded-lg blur-md group-hover:opacity-60 transition duration-300"></div>
           <div className="relative overflow-hidden rounded-lg">
-            <img 
+            <Image
               src={image} 
               alt={title} 
               className="w-full aspect-video object-cover transform group-hover:scale-105 transition duration-500"

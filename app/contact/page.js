@@ -156,13 +156,13 @@ export default function Contact() {
                 <div style={{ ...styles.container, position: 'relative', zIndex: 10 }}>
                     <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 3rem auto' }}>
                         <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>Get In Touch</h2>
-                        <p style={{ color: styles.colors.gray[600] }}>Have questions about our programs or want to learn more about WeldMaster Academy? We're here to help you start your welding journey.</p>
+                        <p style={{ color: styles.colors.gray[600] }}>Have questions about our programs or want to learn more about WeldMaster Academy? We&apos;re here to help you start your welding journey.</p>
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '3rem' }}>
                         <div className="slide-in-left">
                             {/* Contact Info */}
-                            <h2 style={{ fontSize: '1.875rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>We'd Love To Hear From You</h2>
+                            <h2 style={{ fontSize: '1.875rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>We&apos;d Love To Hear From You</h2>
                             <p style={{ marginBottom: '2rem', color: styles.colors.gray[600] }}>Whether you have questions about our welding programs, need assistance with enrollment, or want to schedule a facility tour, our team is ready to assist you.</p>
 
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginBottom: '2.5rem' }}>

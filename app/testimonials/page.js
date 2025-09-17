@@ -117,7 +117,7 @@ const TestimonialSection = () => {
           <span style={styles.tagline}>Testimonials</span>
           <h2 style={styles.title}>What Our Students Say</h2>
           <p style={styles.subtitle}>
-            Don't just take our word for it. Here's what our graduates have to say about their experience learning with WeldMaster Academy.
+            Don&apos;t just take our word for it. Here&apos;s what our graduates have to say about their experience learning with WeldMaster Academy.
           </p>
         </div>
         
