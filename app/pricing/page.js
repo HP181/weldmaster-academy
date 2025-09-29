@@ -75,7 +75,7 @@ export default function Pricing() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4 text-black">Flexible Plans for Every Welder</h2>
             <p className="text-gray-700 max-w-2xl mx-auto">
-              Whether you're starting out or preparing for certification, choose a plan that fits your welding journey.
+              Whether you&apos;re starting out or preparing for certification, choose a plan that fits your welding journey.
             </p>
           </div>
 
