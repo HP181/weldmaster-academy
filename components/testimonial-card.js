@@ -8,7 +8,8 @@ const TestimonialCard = ({ name, role, quote, image }) => {
       <p className="text-[#6c6c6c] mb-6 relative z-10">{quote}</p>
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-full overflow-hidden">
-          <Image src={image} alt={name} className="w-full h-full object-cover" />
+          <Image src={image}  width="1000"
+                  height="1000" alt={name} className="w-full h-full object-cover" />
         </div>
         <div>
           <h4 className="font-medium">{name}</h4>

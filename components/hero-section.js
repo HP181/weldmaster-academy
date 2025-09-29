@@ -62,6 +62,8 @@ const HeroSection = () => {
                 </div>
                 <Image 
                   src="https://images.unsplash.com/photo-1625047509252-ab38fb7a8e4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                  width="1000"
+                  height="1000"
                   alt="Welding Demo" 
                   className="w-full h-full object-cover"
                 />

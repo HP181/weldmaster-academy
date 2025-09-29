@@ -22,7 +22,9 @@ const FeatureCard = ({ title, description, icon: Icon, image, reverse }) => {
           <div className="absolute -inset-1 bg-gradient-to-r from-[#ffc107] to-[#ff9800] opacity-30 rounded-lg blur-md group-hover:opacity-60 transition duration-300"></div>
           <div className="relative overflow-hidden rounded-lg">
             <Image
-              src={image} 
+              src={image}
+               width="1000"
+                  height="1000"
               alt={title} 
               className="w-full aspect-video object-cover transform group-hover:scale-105 transition duration-500"
             />
