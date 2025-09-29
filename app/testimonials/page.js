@@ -68,7 +68,7 @@ const TestimonialSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <button className="bg-black text-[#F8EE00] font-bold py-3 px-6 rounded-none shadow hover:bg-black/90 hover:-translate-y-1 hover:shadow-lg transition transform duration-300">
+          <button className="bg-black text-[#F8EE00] font-bold py-3 px-6 rounded-none shadow hover:bg-black/90 hover:-translate-y-1 hover:shadow-lg transition transform duration-300 cursor-pointer">
             Read More Success Stories
           </button>
         </div>

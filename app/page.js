@@ -77,7 +77,7 @@ export default function Home() {
                 Popular Welding Programs
               </h2>
             </div>
-            <Button variant="link" asChild className="text-black font-medium hover:text-black/70 flex items-center gap-1">
+            <Button variant="link" asChild className="text-black font-medium hover:text-black flex items-center gap-1">
               <Link href="/features">
                 View all courses <ArrowRight size={16} />
               </Link>
@@ -120,7 +120,7 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                  <Button className="w-full bg-black text-[#F8EE00] hover:bg-black/90 rounded-none">Learn More</Button>
+                  <Button className="w-full bg-black text-[#F8EE00] hover:bg-black/90  hover:cursor-pointer">Learn More</Button>
                 </div>
               </div>
             ))}
