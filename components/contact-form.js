@@ -64,7 +64,7 @@ const ContactForm = () => {
       <Form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField>
-            <FormLabel>First Name</FormLabel>
+            <FormLabel className="text-black font-medium">First Name</FormLabel>
             <FormControl>
               <Input 
                 placeholder="Your first name" 
@@ -72,11 +72,12 @@ const ContactForm = () => {
                 value={formData.firstName}
                 onChange={handleChange}
                 required 
+                className="border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
               />
             </FormControl>
           </FormField>
           <FormField>
-            <FormLabel>Last Name</FormLabel>
+            <FormLabel className="text-black font-medium">Last Name</FormLabel>
             <FormControl>
               <Input 
                 placeholder="Your last name"
@@ -84,13 +85,14 @@ const ContactForm = () => {
                 value={formData.lastName}
                 onChange={handleChange}
                 required 
+                className="border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
               />
             </FormControl>
           </FormField>
         </div>
 
         <FormField>
-          <FormLabel>Email</FormLabel>
+          <FormLabel className="text-black font-medium">Email</FormLabel>
           <FormControl>
             <Input 
               type="email"
@@ -99,12 +101,13 @@ const ContactForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
+              className="border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
             />
           </FormControl>
         </FormField>
 
         <FormField>
-          <FormLabel>Phone</FormLabel>
+          <FormLabel className="text-black font-medium">Phone</FormLabel>
           <FormControl>
             <Input 
               type="tel"
@@ -112,20 +115,21 @@ const ContactForm = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
+              className="border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
             />
           </FormControl>
-          <FormDescription>Optional</FormDescription>
+          <FormDescription className="text-gray-600">Optional</FormDescription>
         </FormField>
 
         <FormField>
-          <FormLabel>I&apos;m interested in</FormLabel>
+          <FormLabel className="text-black font-medium">I&apos;m interested in</FormLabel>
           <Select value={formData.interest} onValueChange={(value) => setFormData(prev => ({ ...prev, interest: value }))}>
             <FormControl>
-              <SelectTrigger>
+              <SelectTrigger className="border-gray-300 focus:border-black focus:ring-1 focus:ring-black">
                 <SelectValue placeholder="Select an option" />
               </SelectTrigger>
             </FormControl>
-            <SelectContent>
+            <SelectContent className="border-gray-300">
               <SelectItem value="beginner">Beginner Courses</SelectItem>
               <SelectItem value="advanced">Advanced Training</SelectItem>
               <SelectItem value="certification">Certification Programs</SelectItem>
@@ -136,7 +140,7 @@ const ContactForm = () => {
         </FormField>
 
         <FormField>
-          <FormLabel>Message</FormLabel>
+          <FormLabel className="text-black font-medium">Message</FormLabel>
           <FormControl>
             <Textarea 
               placeholder="Tell us about your welding goals or questions..."
@@ -145,13 +149,14 @@ const ContactForm = () => {
               value={formData.message}
               onChange={handleChange}
               required
+              className="border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
             />
           </FormControl>
         </FormField>
 
         <Button 
           type="submit" 
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          className="w-full bg-black hover:bg-black/80 text-[#F8EE00] font-bold py-3 rounded-none transition-all hover:scale-[1.01]"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Sending..." : "Send Message"}
@@ -159,19 +164,19 @@ const ContactForm = () => {
       </Form>
 
       <AlertDialog open={showSuccess} onOpenChange={setShowSuccess}>
-        <AlertDialogContent>
+        <AlertDialogContent className="rounded-md border-[#F8EE00]">
           <AlertDialogHeader>
-            <div className="mx-auto w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
-              <Check className="text-primary" size={24} />
+            <div className="mx-auto w-12 h-12 rounded-full bg-[#F8EE00] flex items-center justify-center mb-4">
+              <Check className="text-black" size={24} />
             </div>
-            <AlertDialogTitle className="text-center">Message Sent!</AlertDialogTitle>
-            <AlertDialogDescription className="text-center">
+            <AlertDialogTitle className="text-center text-black font-bold text-xl">Message Sent!</AlertDialogTitle>
+            <AlertDialogDescription className="text-center text-gray-700">
               Thank you for contacting us. One of our welding experts will get back to you within 24 hours.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogAction 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="bg-black hover:bg-black/80 text-[#F8EE00] font-bold px-5 py-2 rounded-none transition-all hover:scale-105"
               onClick={() => setShowSuccess(false)}
             >
               Got it!

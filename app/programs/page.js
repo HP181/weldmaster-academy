@@ -76,14 +76,14 @@ export default function Programs() {
     <main>
 
       {/* Page Banner */}
-      <section className="bg-yellow-400 text-white py-24">
+      <section className="bg-[#F8EE00] text-black py-24">
         <div className="container mx-auto text-center">
           <h1 className="relative inline-block mb-4 text-4xl font-bold">
             Our Welding Programs
-            <span className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600"></span>
+            <span className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-24 h-1 bg-black"></span>
           </h1>
-          <div className="flex justify-center items-center gap-2 text-white/70">
-            <Link href="/" className="hover:text-yellow-200">Home</Link>
+          <div className="flex justify-center items-center gap-2 text-black/70">
+            <Link href="/" className="hover:text-black">Home</Link>
             <span>/</span>
             <span>Programs</span>
           </div>
@@ -94,8 +94,8 @@ export default function Programs() {
       <section className="py-16 bg-gray-50 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Comprehensive Welding Education</h2>
-            <p className="text-gray-600 max-w-xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-black">Comprehensive Welding Education</h2>
+            <p className="text-gray-700 max-w-xl mx-auto">
               Choose from our wide range of welding programs designed for all skill levels, from beginners to experienced professionals.
             </p>
           </div>
@@ -107,8 +107,8 @@ export default function Programs() {
                 key={filter}
                 variant={activeFilter === filter ? 'default' : 'outline'} 
                 className={activeFilter === filter 
-                  ? 'bg-yellow-400 hover:bg-yellow-500 text-white' 
-                  : 'hover:bg-yellow-400 hover:text-white text-gray-800'} 
+                  ? 'bg-black hover:bg-black/90 text-[#F8EE00] rounded-none' 
+                  : 'hover:bg-[#F8EE00]/20 hover:text-black text-black border-black rounded-none'} 
                 onClick={() => setActiveFilter(filter)}
               >
                 {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -121,7 +121,7 @@ export default function Programs() {
             {filteredPrograms.map(program => (
               <Card 
                 key={program.id}
-                className="rounded-xl overflow-hidden shadow-lg hover:-translate-y-2 hover:shadow-xl transition-transform duration-300"
+                className="rounded-none overflow-hidden shadow-lg hover:-translate-y-2 hover:shadow-xl transition-transform duration-300 border border-gray-200"
               >
                 <div className="h-52 overflow-hidden">
                   <Image 
@@ -133,19 +133,19 @@ export default function Programs() {
                   />
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 text-gray-900">{program.title}</h3>
+                  <h3 className="text-2xl font-bold mb-3 text-black">{program.title}</h3>
                   <p className="text-gray-600 mb-6">{program.description}</p>
                   <div className="flex justify-between items-center border-t border-gray-100 pt-4 mb-6">
-                    <div className="flex items-center text-gray-500">
-                      <Clock className="h-4 w-4 mr-2 text-yellow-400" />
+                    <div className="flex items-center text-gray-600">
+                      <Clock className="h-4 w-4 mr-2 text-black" />
                       <span>{program.duration}</span>
                     </div>
-                    <div className="flex items-center text-gray-500">
-                      <User className="h-4 w-4 mr-2 text-yellow-400" />
+                    <div className="flex items-center text-gray-600">
+                      <User className="h-4 w-4 mr-2 text-black" />
                       <span>{program.level}</span>
                     </div>
                   </div>
-                  <Button asChild className="w-full bg-yellow-400 hover:bg-yellow-500 text-white">
+                  <Button asChild className="w-full bg-black hover:bg-black/90 text-[#F8EE00] rounded-none">
                     <Link href={`#${program.id}`}>Learn More</Link>
                   </Button>
                 </CardContent>
@@ -158,14 +158,14 @@ export default function Programs() {
       {/* Example: Featured Program Details */}
       <section id="mig-welding" className="bg-gray-100 py-16">
         <div className="container mx-auto space-y-6">
-          <Card className="shadow-lg border-none">
+          <Card className="shadow-lg border-none rounded-none">
             <CardContent className="p-6">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Upcoming Start Dates</h3>
+              <h3 className="text-xl font-bold mb-4 text-black">Upcoming Start Dates</h3>
               <ul className="space-y-3">
                 {['January 15, 2026','March 10, 2026','May 5, 2026'].map((date,index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
-                    <span>{date}</span>
+                    <Check className="h-5 w-5 text-[#F8EE00] mr-3 mt-1 flex-shrink-0" />
+                    <span className="text-gray-700">{date}</span>
                   </li>
                 ))}
               </ul>

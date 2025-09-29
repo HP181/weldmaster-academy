@@ -1,6 +1,5 @@
 'use client'
 
-
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
@@ -54,14 +53,14 @@ export default function Pricing() {
     <main>
 
       {/* Page Banner */}
-      <section className="bg-yellow-400 text-white py-24 px-4 md:px-10">
+      <section className="bg-[#F8EE00] text-black py-24 px-4 md:px-10">
         <div className="container mx-auto text-center">
           <h1 className="relative inline-block mb-4 text-4xl font-bold">
             Pricing Plans
-            <span className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600"></span>
+            <span className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-24 h-1 bg-black"></span>
           </h1>
-          <div className="flex justify-center items-center gap-2 text-white/70">
-            <Link href="/" className="hover:text-yellow-200">
+          <div className="flex justify-center items-center gap-2 text-black/70">
+            <Link href="/" className="hover:text-black">
               Home
             </Link>
             <span>/</span>
@@ -74,9 +73,9 @@ export default function Pricing() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Flexible Plans for Every Welder</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Whether you’re starting out or preparing for certification, choose a plan that fits your welding journey.
+            <h2 className="text-3xl font-bold mb-4 text-black">Flexible Plans for Every Welder</h2>
+            <p className="text-gray-700 max-w-2xl mx-auto">
+              Whether you're starting out or preparing for certification, choose a plan that fits your welding journey.
             </p>
           </div>
 
@@ -84,29 +83,29 @@ export default function Pricing() {
             {plans.map((plan, index) => (
               <Card
                 key={index}
-                className={`rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl ${
-                  plan.highlight ? 'border-2 border-yellow-500' : 'border border-gray-200'
+                className={`rounded-none shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl ${
+                  plan.highlight ? 'border-2 border-[#F8EE00]' : 'border border-gray-200'
                 }`}
               >
                 <CardContent className="p-8 text-center">
-                  <h3 className="text-2xl font-bold mb-2 text-gray-900">{plan.name}</h3>
-                  <p className="text-4xl font-extrabold text-yellow-500 mb-2">{plan.price}</p>
-                  <p className="text-gray-500 mb-6">{plan.duration}</p>
+                  <h3 className="text-2xl font-bold mb-2 text-black">{plan.name}</h3>
+                  <p className={`text-4xl font-extrabold mb-2 ${plan.highlight ? 'text-black' : 'text-black'}`}>{plan.price}</p>
+                  <p className="text-gray-600 mb-6">{plan.duration}</p>
 
                   <ul className="space-y-3 mb-6 text-left">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-center">
-                        <Check className="h-5 w-5 text-yellow-500 mr-3" />
-                        <span>{feature}</span>
+                        <Check className={`h-5 w-5 mr-3 ${plan.highlight ? 'text-[#F8EE00]' : 'text-[#F8EE00]'}`} />
+                        <span className="text-gray-700">{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   <Button
-                    className={`w-full py-3 text-lg font-semibold transition-colors duration-300 ${
+                    className={`w-full py-3 text-lg font-semibold transition-colors duration-300 rounded-none hover:cursor-pointer ${
                       plan.highlight
-                        ? 'bg-yellow-500 hover:bg-yellow-600 text-white'
-                        : 'bg-gray-800 hover:bg-gray-900 text-white'
+                        ? 'bg-black hover:bg-black/90 text-[#F8EE00]'
+                        : 'bg-[#F8EE00] hover:bg-[#F8EE00]/90 text-black'
                     }`}
                   >
                     {plan.cta}

@@ -33,14 +33,14 @@ export default function About() {
     <main className="relative">
 
       {/* Page Banner */}
-      <section className="bg-[#ff8f00] text-white py-20 text-center">
+      <section className="bg-[#F8EE00] text-black py-20 text-center">
         <div className="max-w-5xl mx-auto px-4">
           <h1 className="relative inline-block text-4xl font-bold mb-4">
             About Us
-            <span className="absolute left-1/2 -bottom-2 w-24 h-1 bg-gradient-to-r from-[#ffc107] to-[#ffb300] -translate-x-1/2"></span>
+            <span className="absolute left-1/2 -bottom-2 w-24 h-1 bg-black -translate-x-1/2"></span>
           </h1>
-          <div className="flex justify-center items-center gap-2 text-white/70">
-            <Link href="/" className="hover:text-[#ffc107] transition">Home</Link>
+          <div className="flex justify-center items-center gap-2 text-black/70">
+            <Link href="/" className="hover:text-black transition">Home</Link>
             <span>/</span>
             <span>About Us</span>
           </div>
@@ -52,11 +52,11 @@ export default function About() {
         <div className="max-w-6xl mx-auto px-4 grid gap-12 md:grid-cols-2 items-center">
           {/* Image */}
           <div className="slide-in-left relative group">
-            <div className="absolute -top-5 -left-5 w-24 h-24 border-t-4 border-l-4 border-[#ffc107] z-[-1]"></div>
-            <div className="absolute -bottom-5 -right-5 w-24 h-24 border-b-4 border-r-4 border-[#ffc107] z-[-1]"></div>
-            <div className="rounded-xl overflow-hidden shadow-xl transition-transform duration-300 group-hover:scale-105">
+            <div className="absolute -top-5 -left-5 w-24 h-24 border-t-4 border-l-4 border-[#F8EE00] z-[-1]"></div>
+            <div className="absolute -bottom-5 -right-5 w-24 h-24 border-b-4 border-r-4 border-[#F8EE00] z-[-1]"></div>
+            <div className="rounded-none overflow-hidden shadow-xl transition-transform duration-300 group-hover:scale-105 border border-gray-200">
               <Image
-                src={imageError ? "https://placehold.co/600x400/ffc107/ffffff?text=WeldMaster+Academy" : "/images/about-image.jpg"}
+                src={imageError ? "https://placehold.co/600x400/F8EE00/000000?text=WeldMaster+Academy" : "/images/about-image.jpg"}
                 alt="WeldMaster Academy"
                 width={600}
                 height={400}
@@ -68,7 +68,7 @@ export default function About() {
 
           {/* Text */}
           <div className="slide-in-right space-y-6">
-            <h2 className="text-3xl font-bold text-[#ff8f00]">Our Story</h2>
+            <h2 className="text-3xl font-bold text-black">Our Story</h2>
             <p className="text-gray-700 leading-relaxed">
               WeldMaster Academy was founded in 2010 by a team of professional welders and educators...
             </p>
@@ -82,10 +82,10 @@ export default function About() {
                 { title: '98%', description: 'Job Placement' },
                 { title: '20+', description: 'Industry Partners' }
               ].map((stat, i) => (
-                <Card key={i} className="text-center shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-1">
+                <Card key={i} className="text-center shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-1 rounded-none border-t-2 border-t-[#F8EE00]">
                   <CardContent className="p-6">
-                    <h3 className="text-2xl font-bold text-[#ffc107] mb-2">{stat.title}</h3>
-                    <p className="text-gray-600">{stat.description}</p>
+                    <h3 className="text-2xl font-bold text-black mb-2">{stat.title}</h3>
+                    <p className="text-gray-700">{stat.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -97,8 +97,8 @@ export default function About() {
       {/* Mission Section */}
       <section className="bg-gray-50 py-20">
         <div className="max-w-5xl mx-auto px-4 text-center mb-12">
-          <h2 className="text-3xl font-bold text-[#ff8f00] mb-2">Our Mission & Values</h2>
-          <p className="text-gray-600">Guided by our commitment to excellence in welding education.</p>
+          <h2 className="text-3xl font-bold text-black mb-2">Our Mission & Values</h2>
+          <p className="text-gray-700">Guided by our commitment to excellence in welding education.</p>
         </div>
 
         <div className="max-w-6xl mx-auto px-4 grid gap-8 sm:grid-cols-3">
@@ -107,25 +107,25 @@ export default function About() {
             { title: 'Our Vision', description: 'To be recognized as the leading welding education institution...', icon: Eye },
             { title: 'Our Values', description: 'Excellence in education, hands-on learning, innovation, safety...', icon: Heart }
           ].map((item, i) => (
-            <Card key={i} className="fade-in p-8 text-center shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-1">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#fff8e1] text-[#ffc107] flex items-center justify-center">
+            <Card key={i} className="fade-in p-8 text-center shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-1 rounded-none">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#F8EE00]/20 text-black flex items-center justify-center">
                 <item.icon size={32} />
               </div>
-              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-gray-600">{item.description}</p>
+              <h3 className="text-xl font-bold mb-2 text-black">{item.title}</h3>
+              <p className="text-gray-700">{item.description}</p>
             </Card>
           ))}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 text-center bg-gradient-to-r from-[#ffc107] to-[#ffb300] text-white">
+      <section className="py-20 text-center bg-black text-white">
         <div className="max-w-4xl mx-auto px-4 space-y-6">
-          <h2 className="text-3xl font-bold">Ready to Start Your Welding Journey?</h2>
+          <h2 className="text-3xl font-bold text-[#F8EE00]">Ready to Start Your Welding Journey?</h2>
           <p className="text-lg max-w-xl mx-auto">
             Join the WeldMaster family and learn from the best in the industry...
           </p>
-          <Button asChild className="bg-white text-[#ff8f00] font-bold px-8 py-3 rounded-md hover:bg-white/90 hover:-translate-y-1 transition">
+          <Button asChild className="bg-[#F8EE00] text-black font-bold px-8 py-3 rounded-none hover:bg-[#F8EE00]/90 hover:-translate-y-1 transition">
             <Link href="/enroll">Enroll Now</Link>
           </Button>
         </div>
@@ -135,7 +135,7 @@ export default function About() {
       {/* Back to Top */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-[#ffc107] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-[#ffb300] hover:-translate-y-1 transition z-40"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-[#F8EE00] text-black rounded-none flex items-center justify-center shadow-lg hover:bg-[#F8EE00]/90 hover:-translate-y-1 transition z-40"
         aria-label="Back to top"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
