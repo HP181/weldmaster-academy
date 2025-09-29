@@ -5,42 +5,14 @@ import TestimonialCard from '@/components/testimonial-card'
 
 const TestimonialSection = () => {
   const [isMobile, setIsMobile] = useState(true)
-  
+
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    // Initial check
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
     handleResize()
-    
-    // Add event listener
     window.addEventListener('resize', handleResize)
-    
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
-  
-  // Add styles for hover-up animation
-  useEffect(() => {
-    const style = document.createElement('style')
-    style.innerHTML = `
-      .hover-up {
-        transition: transform 0.3s ease;
-      }
-      .hover-up:hover {
-        transform: translateY(-8px);
-      }
-    `
-    document.head.appendChild(style)
-    
-    return () => {
-      document.head.removeChild(style)
-    }
-  }, [])
-  
+
   const testimonials = [
     {
       name: "Michael Johnson",
@@ -67,61 +39,23 @@ const TestimonialSection = () => {
       quote: "I was hesitant to switch careers at 35, but the team at WeldMaster gave me the support I needed. Their aerospace welding program is incredibly thorough, and the job placement assistance was invaluable. Now I work for a major defense contractor."
     }
   ]
-  
-  // Style definitions
-  const styles = {
-    section: {
-      padding: '5rem 0',
-      backgroundColor: '#f8f9fa'
-    },
-    container: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '0 1rem'
-    },
-    header: {
-      textAlign: 'center',
-      maxWidth: '800px',
-      margin: '0 auto 3rem auto'
-    },
-    tagline: {
-      display: 'inline-block',
-      padding: '0.25rem 0.75rem',
-      backgroundColor: 'rgba(255, 193, 7, 0.1)',
-      borderRadius: '9999px',
-      fontSize: '0.875rem',
-      fontWeight: '500',
-      color: '#ffc107',
-      marginBottom: '1rem'
-    },
-    title: {
-      fontSize: '2rem',
-      fontWeight: 'bold',
-      marginBottom: '1rem',
-      color: '#1a1a1a'
-    },
-    subtitle: {
-      color: '#6c757d'
-    },
-    grid: {
-      display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(300px, 1fr))',
-      gap: '1.5rem'
-    }
-  }
-  
+
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <span style={styles.tagline}>Testimonials</span>
-          <h2 style={styles.title}>What Our Students Say</h2>
-          <p style={styles.subtitle}>
+    <section className="py-24 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="inline-block py-1 px-3 rounded-full bg-yellow-400/20 text-yellow-400 text-sm font-medium mb-4">
+            Testimonials
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            What Our Students Say
+          </h2>
+          <p className="text-gray-500">
             Don&apos;t just take our word for it. Here&apos;s what our graduates have to say about their experience learning with WeldMaster Academy.
           </p>
         </div>
-        
-        <div style={styles.grid}>
+
+        <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-2 md:grid-cols-2 lg:grid-cols-4'}`}>
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={index}
@@ -132,32 +66,9 @@ const TestimonialSection = () => {
             />
           ))}
         </div>
-        
-        <div style={{
-          textAlign: 'center',
-          marginTop: '3rem'
-        }}>
-          <button style={{
-            backgroundColor: '#ffc107',
-            color: '#1a1a1a',
-            border: 'none',
-            borderRadius: '0.375rem',
-            padding: '0.75rem 1.5rem',
-            fontWeight: '600',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#ffb300';
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#ffc107';
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-          >
+
+        <div className="text-center mt-12">
+          <button className="bg-yellow-400 text-gray-900 font-semibold py-3 px-6 rounded-md shadow hover:bg-yellow-500 hover:-translate-y-1 hover:shadow-lg transition transform duration-300">
             Read More Success Stories
           </button>
         </div>

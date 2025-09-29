@@ -18,7 +18,6 @@ const Navbar = () => {
     { name: 'About', href: '/about' },
     { name: 'Enroll', href: '/enroll' },
     { name: 'Programs', href: '/programs' },
-    // { name: 'Testimonials', href: '/testimonials' },
     { name: 'Pricing', href: '/pricing' },
     { name: 'Contact', href: '/contact' },
   ]
@@ -31,7 +30,9 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (navRef.current && !navRef.current.contains(event.target)) setIsOpen(false)
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsOpen(false)
+      }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
@@ -41,44 +42,59 @@ const Navbar = () => {
     <nav
       ref={navRef}
       className={`fixed w-full top-0 z-50 transition-all ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'py-4'
+        scrolled ? 'bg-black shadow-md py-2' : 'bg-[#fffdf7] py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-        <Logo />
+        {/* Logo */}
+        <div className={`${scrolled ? 'text-white' : 'text-[#1a1a1a]'}`}>
+          <Logo color={scrolled ? '#fff' : '#1a1a1a'} />
+        </div>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-8">
           {navLinks.map(link => {
             const isActive = pathname === link.href
             return (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`font-medium transition-colors ${
-                  isActive ? 'text-yellow-500' : 'text-gray-900 hover:text-yellow-500'
+                className={`font-semibold uppercase tracking-wide transition-colors ${
+                  isActive
+                    ? scrolled
+                      ? 'text-[#F8EE00]'
+                      : 'text-[#ffc107]'
+                    : scrolled
+                      ? 'text-white hover:text-[#F8EE00]'
+                      : 'text-[#1a1a1a] hover:text-[#ffc107]'
                 }`}
               >
                 {link.name}
               </Link>
             )
           })}
-          <Button className="bg-yellow-500 text-black font-bold hover:bg-yellow-400">Start Learning</Button>
+          <Button className={`font-bold px-5 py-2 rounded-none transition-all ${
+            scrolled
+              ? 'bg-[#F8EE00] text-black hover:bg-black hover:text-[#F8EE00] hover:border hover:border-[#F8EE00]'
+              : 'bg-[#ffc107] text-black hover:bg-[#ffb300]'
+          }`}>
+            Start Learning
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <div className={`${scrolled ? 'text-white' : 'text-[#1a1a1a]'} md:hidden`}>
           <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden transition-all overflow-hidden bg-white shadow-md ${
+        className={`md:hidden transition-all overflow-hidden ${
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}
+        } ${scrolled ? 'bg-black' : 'bg-[#fffdf7]'}`}
       >
         <div className="flex flex-col gap-3 p-4">
           {navLinks.map(link => {
@@ -87,8 +103,14 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`font-medium px-2 py-1 rounded transition-colors ${
-                  isActive ? 'bg-yellow-100 text-yellow-500' : 'text-gray-900 hover:text-yellow-500'
+                className={`font-medium px-2 py-2 rounded transition-colors ${
+                  isActive
+                    ? scrolled
+                      ? 'text-[#F8EE00]'
+                      : 'text-[#ffc107]'
+                    : scrolled
+                      ? 'text-white hover:text-[#F8EE00]'
+                      : 'text-[#1a1a1a] hover:text-[#ffc107]'
                 }`}
                 onClick={() => setIsOpen(false)}
               >
@@ -96,7 +118,11 @@ const Navbar = () => {
               </Link>
             )
           })}
-          <Button className="w-full bg-yellow-500 text-black font-bold hover:bg-yellow-400">
+          <Button className={`w-full font-bold py-2 rounded-none transition-all ${
+            scrolled
+              ? 'bg-[#F8EE00] text-black hover:bg-black hover:text-[#F8EE00] hover:border hover:border-[#F8EE00]'
+              : 'bg-[#ffc107] text-black hover:bg-[#ffb300]'
+          }`}>
             Start Learning
           </Button>
         </div>

@@ -12,7 +12,10 @@ const FeatureCard = ({ title, description, icon: Icon, image, reverse }) => {
         </div>
         <h3 className="text-2xl font-bold">{title}</h3>
         <p className="text-[#6c6c6c]">{description}</p>
-        <Button variant="link" className="p-0 font-medium text-[#ffc107] flex items-center gap-1 hover:gap-2 transition-all">
+        <Button 
+          variant="link" 
+          className="p-0 font-medium text-[#ffc107] flex items-center gap-1 hover:gap-2 transition-all"
+        >
           Learn more <ChevronRight size={16} />
         </Button>
       </div>
@@ -23,8 +26,8 @@ const FeatureCard = ({ title, description, icon: Icon, image, reverse }) => {
           <div className="relative overflow-hidden rounded-lg">
             <Image
               src={image}
-               width="1000"
-                  height="1000"
+              width={1000}
+              height={1000}
               alt={title} 
               className="w-full aspect-video object-cover transform group-hover:scale-105 transition duration-500"
             />

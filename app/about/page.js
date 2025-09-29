@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Target, Eye, Heart } from 'lucide-react'
@@ -12,25 +10,27 @@ import { Target, Eye, Heart } from 'lucide-react'
 export default function About() {
   const [imageError, setImageError] = useState(false)
 
-  // Scroll animations
+  // IntersectionObserver for scroll animations
   useEffect(() => {
-    const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right')
-    const handleScroll = () => {
-      animatedElements.forEach(el => {
-        const elementTop = el.getBoundingClientRect().top
-        if (elementTop < window.innerHeight - 150) {
-          el.classList.add('active')
-        }
-      })
-    }
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
   }, [])
 
   return (
     <main className="relative">
-      <Navbar />
 
       {/* Page Banner */}
       <section className="bg-[#ff8f00] text-white py-20 text-center">
@@ -103,21 +103,9 @@ export default function About() {
 
         <div className="max-w-6xl mx-auto px-4 grid gap-8 sm:grid-cols-3">
           {[
-            {
-              title: 'Our Mission',
-              description: 'To provide world-class welding education...',
-              icon: Target
-            },
-            {
-              title: 'Our Vision',
-              description: 'To be recognized as the leading welding education institution...',
-              icon: Eye
-            },
-            {
-              title: 'Our Values',
-              description: 'Excellence in education, hands-on learning, innovation, safety...',
-              icon: Heart
-            }
+            { title: 'Our Mission', description: 'To provide world-class welding education...', icon: Target },
+            { title: 'Our Vision', description: 'To be recognized as the leading welding education institution...', icon: Eye },
+            { title: 'Our Values', description: 'Excellence in education, hands-on learning, innovation, safety...', icon: Heart }
           ].map((item, i) => (
             <Card key={i} className="fade-in p-8 text-center shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-1">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#fff8e1] text-[#ffc107] flex items-center justify-center">
@@ -137,13 +125,12 @@ export default function About() {
           <p className="text-lg max-w-xl mx-auto">
             Join the WeldMaster family and learn from the best in the industry...
           </p>
-          <Button className="bg-white text-[#ff8f00] font-bold px-8 py-3 rounded-md hover:bg-white/90 hover:-translate-y-1 transition">
-            <Link href="/enroll" className="text-inherit">Enroll Now</Link>
+          <Button asChild className="bg-white text-[#ff8f00] font-bold px-8 py-3 rounded-md hover:bg-white/90 hover:-translate-y-1 transition">
+            <Link href="/enroll">Enroll Now</Link>
           </Button>
         </div>
       </section>
 
-      <Footer />
 
       {/* Back to Top */}
       <button

@@ -3,21 +3,13 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Check, Clock, User, ChevronDown } from 'lucide-react'
+import { Check, Clock, User } from 'lucide-react'
 
 export default function Programs() {
-  const [activeTab, setActiveTab] = useState('overview')
-  const [activeAccordion, setActiveAccordion] = useState(null)
   const [activeFilter, setActiveFilter] = useState('all')
-  
-  const toggleAccordion = (id) => {
-    setActiveAccordion(activeAccordion === id ? null : id)
-  }
 
   const programsData = [
     {
@@ -76,40 +68,22 @@ export default function Programs() {
     }
   ]
 
-  const filteredPrograms = () => {
-    if (activeFilter === 'all') return programsData
-    return programsData.filter(program => program.category === activeFilter)
-  }
-
-  useEffect(() => {
-    const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right')
-    const handleScroll = () => {
-      animatedElements.forEach(el => {
-        const elementTop = el.getBoundingClientRect().top
-        const elementVisible = 150
-        if (elementTop < window.innerHeight - elementVisible) {
-          el.classList.add('active')
-        }
-      })
-    }
-    setTimeout(handleScroll, 300)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const filteredPrograms = programsData.filter(
+    program => activeFilter === 'all' || program.category === activeFilter
+  )
 
   return (
     <main>
-      <Navbar />
 
       {/* Page Banner */}
-      <section className="bg-[#FFCC00] text-white py-24">
+      <section className="bg-yellow-400 text-white py-24">
         <div className="container mx-auto text-center">
           <h1 className="relative inline-block mb-4 text-4xl font-bold">
             Our Welding Programs
-            <span className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-24 h-1 bg-gradient-to-r from-[#FFCC00] to-[#FF9900]"></span>
+            <span className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600"></span>
           </h1>
           <div className="flex justify-center items-center gap-2 text-white/70">
-            <Link href="/" className="text-white hover:text-[#FFD633]">Home</Link>
+            <Link href="/" className="hover:text-yellow-200">Home</Link>
             <span>/</span>
             <span>Programs</span>
           </div>
@@ -117,11 +91,13 @@ export default function Programs() {
       </section>
 
       {/* Programs Section */}
-      <section className="py-16 bg-[#f9f9f9] px-4">
+      <section className="py-16 bg-gray-50 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4 text-gray-900">Comprehensive Welding Education</h2>
-            <p className="text-gray-600 max-w-xl mx-auto">Choose from our wide range of welding programs designed for all skill levels, from beginners to experienced professionals.</p>
+            <p className="text-gray-600 max-w-xl mx-auto">
+              Choose from our wide range of welding programs designed for all skill levels, from beginners to experienced professionals.
+            </p>
           </div>
 
           {/* Filter Buttons */}
@@ -131,8 +107,8 @@ export default function Programs() {
                 key={filter}
                 variant={activeFilter === filter ? 'default' : 'outline'} 
                 className={activeFilter === filter 
-                  ? 'bg-[#FFCC00] hover:bg-[#FFB800] text-white' 
-                  : 'hover:bg-[#FFCC00] hover:text-white text-gray-800'} 
+                  ? 'bg-yellow-400 hover:bg-yellow-500 text-white' 
+                  : 'hover:bg-yellow-400 hover:text-white text-gray-800'} 
                 onClick={() => setActiveFilter(filter)}
               >
                 {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -142,10 +118,10 @@ export default function Programs() {
 
           {/* Programs Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPrograms().map((program) => (
+            {filteredPrograms.map(program => (
               <Card 
                 key={program.id}
-                className="rounded-xl overflow-hidden border-none shadow-lg transition-all hover:-translate-y-2 hover:shadow-xl fade-in"
+                className="rounded-xl overflow-hidden shadow-lg hover:-translate-y-2 hover:shadow-xl transition-transform duration-300"
               >
                 <div className="h-52 overflow-hidden">
                   <Image 
@@ -153,7 +129,7 @@ export default function Programs() {
                     alt={program.title} 
                     width={400} 
                     height={200}
-                    className="w-full h-full object-cover transition-transform hover:scale-110 duration-500"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                   />
                 </div>
                 <CardContent className="p-6">
@@ -161,15 +137,15 @@ export default function Programs() {
                   <p className="text-gray-600 mb-6">{program.description}</p>
                   <div className="flex justify-between items-center border-t border-gray-100 pt-4 mb-6">
                     <div className="flex items-center text-gray-500">
-                      <Clock className="h-4 w-4 mr-2 text-[#FFCC00]" />
+                      <Clock className="h-4 w-4 mr-2 text-yellow-400" />
                       <span>{program.duration}</span>
                     </div>
                     <div className="flex items-center text-gray-500">
-                      <User className="h-4 w-4 mr-2 text-[#FFCC00]" />
+                      <User className="h-4 w-4 mr-2 text-yellow-400" />
                       <span>{program.level}</span>
                     </div>
                   </div>
-                  <Button asChild className="w-full bg-[#FFCC00] hover:bg-[#FFB800] text-white">
+                  <Button asChild className="w-full bg-yellow-400 hover:bg-yellow-500 text-white">
                     <Link href={`#${program.id}`}>Learn More</Link>
                   </Button>
                 </CardContent>
@@ -179,30 +155,25 @@ export default function Programs() {
         </div>
       </section>
 
-      {/* Featured Program Details */}
-      <section id="mig-welding" className="bg-gray-50 py-16">
-        <div className="container mx-auto">
-          {/* ... Tabs and Accordion code remains unchanged ... */}
-
-          <div className="space-y-6 mt-8">
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-4 text-gray-900">Upcoming Start Dates</h3>
-                <ul className="space-y-3">
-                  {['January 15, 2026','March 10, 2026','May 5, 2026'].map((date,index) => (
-                    <li key={index} className="flex items-start">
-                      <Check className="h-5 w-5 text-[#FFCC00] mr-3 mt-1 flex-shrink-0" />
-                      <span>{date}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+      {/* Example: Featured Program Details */}
+      <section id="mig-welding" className="bg-gray-100 py-16">
+        <div className="container mx-auto space-y-6">
+          <Card className="shadow-lg border-none">
+            <CardContent className="p-6">
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Upcoming Start Dates</h3>
+              <ul className="space-y-3">
+                {['January 15, 2026','March 10, 2026','May 5, 2026'].map((date,index) => (
+                  <li key={index} className="flex items-start">
+                    <Check className="h-5 w-5 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
+                    <span>{date}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <Footer />
     </main>
   )
 }

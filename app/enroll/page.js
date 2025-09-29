@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -16,21 +14,6 @@ export default function Enroll() {
   const [faqOpen, setFaqOpen] = useState({})
   const fadeElements = useRef([])
 
-  const styles = {
-    colors: {
-      welding: { 50: '#fff8e1', 100: '#ffecb3', 200: '#ffe082', 300: '#ffd54f', 400: '#ffca28', 500: '#ffc107', 600: '#ffb300', 700: '#ffa000', 800: '#ff8f00', 900: '#ff6f00' },
-      white: '#ffffff',
-      black: '#000000',
-      gray: { 50: '#f8f9fa', 100: '#f1f3f5', 200: '#e9ecef', 300: '#dee2e6', 400: '#ced4da', 500: '#adb5bd', 600: '#6c757d', 700: '#495057', 800: '#343a40', 900: '#212529' },
-      green: { 100: '#d4edda', 700: '#28a745' },
-      amber: { 100: '#fff3cd', 700: '#ffc107' }
-    },
-    shadows: { sm: '0 1px 2px 0 rgba(0,0,0,0.05)', md: '0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06)', lg: '0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05)', xl: '0 20px 25px -5px rgba(0,0,0,0.1),0 10px 10px -5px rgba(0,0,0,0.04)' },
-    transitions: { standard: 'all 0.3s ease' },
-    gradients: { primary: 'linear-gradient(to right, #ffc107, #ffb300)' },
-    container: { maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }
-  }
-
   const handleSubmit = (e) => { e.preventDefault(); setFormSubmitted(true) }
   const handleCloseModal = () => setFormSubmitted(false)
   const toggleFaq = (index) => setFaqOpen(prev => ({ ...prev, [index]: !prev[index] }))
@@ -40,8 +23,7 @@ export default function Enroll() {
     handleResize()
     window.addEventListener('resize', handleResize)
 
-    const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right')
-    fadeElements.current = Array.from(elements)
+    fadeElements.current = Array.from(document.querySelectorAll('.fade-in'))
 
     let ticking = false
     const handleScroll = () => {
@@ -69,29 +51,33 @@ export default function Enroll() {
   const FaqItem = ({ question, answer, index }) => {
     const isOpen = faqOpen[index] || false
     return (
-      <div style={{ backgroundColor: styles.colors.white, borderRadius:'0.75rem', boxShadow:styles.shadows.md, overflow:'hidden', marginBottom:'1rem', transition: styles.transitions.standard }} className="fade-in">
-        <div onClick={() => toggleFaq(index)} style={{ padding:'1.25rem', display:'flex', justifyContent:'space-between', alignItems:'center', cursor:'pointer'}}>
-          <h3 style={{ fontSize:'1.125rem', fontWeight:'600' }}>{question}</h3>
-          <button style={{ color: styles.colors.welding[500], transition:'transform 0.3s ease', transform: isOpen?'rotate(180deg)':'rotate(0)', background:'none', border:'none', cursor:'pointer'}} aria-label={isOpen?'Collapse':'Expand'}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="fade-in bg-white rounded-xl shadow-md overflow-hidden mb-4 transition-all duration-300">
+        <div
+          className="flex justify-between items-center cursor-pointer p-5"
+          onClick={() => toggleFaq(index)}
+        >
+          <h3 className="text-lg font-semibold">{question}</h3>
+          <button
+            className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+            aria-label={isOpen ? 'Collapse' : 'Expand'}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
         </div>
-        <div style={{ overflow:'hidden', transition:'all 0.3s ease', maxHeight:isOpen?'500px':'0', opacity:isOpen?'1':'0'}}>
-          <div style={{ padding:'1.25rem', borderTop:`1px solid ${styles.colors.gray[200]}`, color: styles.colors.gray[600]}}>
-            {answer}
-          </div>
+        <div className={`transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+          <div className="p-5 border-t border-gray-200 text-gray-600">{answer}</div>
         </div>
       </div>
     )
   }
 
   const programs = [
-    { id: 'mig', title: 'MIG Welding', duration: '12 Weeks', icon: 'fas fa-tools' },
-    { id: 'tig', title: 'TIG Welding', duration: '16 Weeks', icon: 'fas fa-bolt' },
-    { id: 'stick', title: 'Stick Welding', duration: '10 Weeks', icon: 'fas fa-hammer' },
-    { id: 'pipe', title: 'Pipe Welding', duration: '20 Weeks', icon: 'fas fa-circle-notch' }
+    { id: 'mig', title: 'MIG Welding', duration: '12 Weeks', icon: '🛠' },
+    { id: 'tig', title: 'TIG Welding', duration: '16 Weeks', icon: '⚡' },
+    { id: 'stick', title: 'Stick Welding', duration: '10 Weeks', icon: '🔨' },
+    { id: 'pipe', title: 'Pipe Welding', duration: '20 Weeks', icon: '⭕' }
   ]
 
   const upcomingClasses = [
@@ -105,19 +91,16 @@ export default function Enroll() {
 
   return (
     <main>
-      <Navbar />
 
-      {/* Page Banner */}
-      <section style={{ backgroundColor: styles.colors.welding[800], padding: '80px 0', textAlign: 'center', color: styles.colors.white }}>
-        <div style={styles.container}>
-          <h1 style={{ position: 'relative', display: 'inline-block', marginBottom: '1rem', fontSize: '2.5rem', fontWeight: 'bold' }}>
+      {/* Banner */}
+      <section className="bg-amber-700 text-white py-24 text-center">
+        <div className="container mx-auto px-4">
+          <h1 className="relative inline-block text-4xl font-bold mb-4">
             Enroll Now
-            <span style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', bottom: '-0.5rem', width: '6rem', height: '0.25rem', background: styles.gradients.primary }}></span>
+            <span className="absolute left-1/2 -bottom-2 w-24 h-1 bg-gradient-to-r from-amber-400 to-amber-600 -translate-x-1/2"></span>
           </h1>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-            <Link href="/" style={{ color: styles.colors.white, textDecoration: 'none', transition: styles.transitions.standard }}
-              onMouseEnter={(e) => e.currentTarget.style.color = styles.colors.welding[500]}
-              onMouseLeave={(e) => e.currentTarget.style.color = styles.colors.white}>Home</Link>
+          <div className="flex justify-center items-center gap-2 text-white/70">
+            <Link href="/" className="hover:text-amber-300">Home</Link>
             <span>/</span>
             <span>Enroll Now</span>
           </div>
@@ -125,89 +108,87 @@ export default function Enroll() {
       </section>
 
       {/* Enrollment Section */}
-      <section style={{ position: 'relative', overflow: 'hidden', padding: '5rem 0' }}>
-        <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '300px', height: '300px', backgroundColor: styles.colors.welding[50], borderRadius: '50%', zIndex: 0 }}></div>
-        <div style={{ position: 'absolute', bottom: '-100px', left: '-100px', width: '300px', height: '300px', backgroundColor: styles.colors.welding[50], borderRadius: '50%', zIndex: 0 }}></div>
-        
-        <div style={{ ...styles.container, position: 'relative', zIndex: 10 }}>
-          <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 3rem auto' }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem', color: styles.colors.welding[800] }}>Start Your Welding Journey Today</h2>
-            <p style={{ color: styles.colors.gray[600] }}>Fill out the form below to enroll in one of our comprehensive welding programs and take the first step towards a rewarding career.</p>
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-amber-100 rounded-full"></div>
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-amber-100 rounded-full"></div>
+
+        <div className="relative container mx-auto px-4 z-10">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl font-bold text-amber-800 mb-4">Start Your Welding Journey Today</h2>
+            <p className="text-gray-600">Fill out the form below to enroll in one of our comprehensive welding programs and take the first step towards a rewarding career.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr', gap: '2rem' }}>
-            {/* Enrollment Form */}
-            <div>
-              <Card className="fade-in" style={{ border: 'none', boxShadow: styles.shadows.xl }}>
-                <CardContent style={{ padding: '2rem' }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Enrollment Form</h3>
-                  <form onSubmit={handleSubmit}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                      {/* Program Selection */}
-                      <div>
-                        <label style={{ fontSize: '1.125rem', fontWeight: '600', display: 'block', marginBottom: '1rem' }}>Select Your Program</label>
-                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '1rem' }}>
-                          {programs.map(program => (
-                            <div key={program.id} style={{
-                              border: `1px solid ${selectedProgram === program.id ? styles.colors.welding[500] : styles.colors.gray[200]}`,
-                              borderRadius: '0.75rem', padding: '1.25rem', cursor: 'pointer',
-                              transition: styles.transitions.standard, backgroundColor: selectedProgram === program.id ? styles.colors.welding[50] : 'transparent'
-                            }} onClick={() => setSelectedProgram(program.id)}>
-                              <input type="radio" name="program" value={program.id} checked={selectedProgram === program.id} onChange={() => setSelectedProgram(program.id)} style={{ display: 'none' }} />
-                              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                                <div style={{ width: '3.5rem', height: '3.5rem', borderRadius: '50%', backgroundColor: styles.colors.welding[100], display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem', color: styles.colors.welding[600], fontSize: '1.25rem' }}>
-                                  <i className={program.icon}></i>
-                                </div>
-                                <h4 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.25rem' }}>{program.title}</h4>
-                                <p style={{ color: styles.colors.gray[500], fontSize: '0.875rem' }}>{program.duration}</p>
-                              </div>
+          <div className={`grid gap-8 ${isMobile ? 'grid-cols-1' : 'grid-cols-3'}`}>
+            {/* Form */}
+            <div className="col-span-2">
+              <Card className="fade-in shadow-xl">
+                <CardContent className="p-8">
+                  <h3 className="text-xl font-bold mb-6">Enrollment Form</h3>
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                    {/* Program Selection */}
+                    <div>
+                      <label className="block font-semibold mb-3">Select Your Program</label>
+                      <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} gap-4`}>
+                        {programs.map(program => (
+                          <div
+                            key={program.id}
+                            className={`cursor-pointer rounded-xl p-5 border transition ${
+                              selectedProgram === program.id
+                                ? 'border-amber-500 bg-amber-50'
+                                : 'border-gray-200'
+                            }`}
+                            onClick={() => setSelectedProgram(program.id)}
+                          >
+                            <input type="radio" name="program" value={program.id} checked={selectedProgram === program.id} onChange={() => setSelectedProgram(program.id)} className="hidden" />
+                            <div className="flex flex-col items-center text-center">
+                              <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center text-2xl mb-3">{program.icon}</div>
+                              <h4 className="font-semibold mb-1">{program.title}</h4>
+                              <p className="text-gray-500 text-sm">{program.duration}</p>
                             </div>
-                          ))}
-                        </div>
+                          </div>
+                        ))}
                       </div>
-
-                      {/* Personal Information */}
-                      <div>
-                        <h4 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Personal Information</h4>
-                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '1.5rem' }}>
-                          {['firstName', 'lastName', 'email', 'phone'].map((field, index) => {
-                            const placeholder = field === 'email' ? 'your@email.com' : field === 'phone' ? '+1 (555) 123-4567' : field === 'firstName' ? 'John' : 'Doe'
-                            const type = field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'
-                            return (
-                              <div key={index}>
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }} htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}*</label>
-                                <Input id={field} type={type} placeholder={placeholder} required style={{ border: `1px solid ${styles.colors.gray[200]}`, borderRadius: '0.375rem', padding: '0.5rem 0.75rem', width: '100%' }} />
-                              </div>
-                            )
-                          })}
-                        </div>
-                      </div>
-
-                      <Button type="submit" style={{ width: '100%', backgroundColor: styles.colors.welding[500], color: styles.colors.welding[900], fontWeight: 'bold', padding: '0.75rem 1.5rem', borderRadius: '0.375rem', border: 'none', cursor: 'pointer', transition: styles.transitions.standard, marginTop: '1rem' }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.colors.welding[400]}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = styles.colors.welding[500]}>
-                        Submit Application
-                      </Button>
                     </div>
+
+                    {/* Personal Info */}
+                    <div>
+                      <h4 className="font-semibold mb-3">Personal Information</h4>
+                      <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} gap-4`}>
+                        {['firstName', 'lastName', 'email', 'phone'].map((field, idx) => {
+                          const placeholder = field === 'email' ? 'your@email.com' : field === 'phone' ? '+1 (555) 123-4567' : field === 'firstName' ? 'John' : 'Doe'
+                          const type = field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'
+                          return (
+                            <div key={idx}>
+                              <label className="block mb-1 font-medium">{field.charAt(0).toUpperCase() + field.slice(1)}*</label>
+                              <Input id={field} type={type} placeholder={placeholder} required />
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-400 text-amber-900 font-bold py-3 rounded-md transition">Submit Application</Button>
                   </form>
                 </CardContent>
               </Card>
             </div>
 
             {/* Sidebar */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }} className="fade-in">
+            <div className="flex flex-col gap-6">
               {/* Upcoming Classes */}
-              <Card style={{ border: 'none', boxShadow: styles.shadows.lg }}>
-                <CardContent style={{ padding: '1.5rem' }}>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Upcoming Classes</h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    {upcomingClasses.map((cls, i) => (
-                      <div key={i} style={{ backgroundColor: styles.colors.welding[50], padding: '1rem', borderRadius: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Card className="fade-in shadow-lg">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg mb-4">Upcoming Classes</h3>
+                  <div className="flex flex-col gap-3">
+                    {upcomingClasses.map((cls, idx) => (
+                      <div key={idx} className="flex justify-between items-center bg-amber-50 p-4 rounded-lg">
                         <div>
-                          <h4 style={{ fontWeight: '600' }}>{cls.date}</h4>
-                          <p style={{ fontSize: '0.875rem', color: styles.colors.gray[600] }}>Day & Evening Classes</p>
+                          <h4 className="font-semibold">{cls.date}</h4>
+                          <p className="text-gray-500 text-sm">Day & Evening Classes</p>
                         </div>
-                        <span style={{ padding: '0.25rem 0.75rem', backgroundColor: cls.availability === 'Available' ? styles.colors.green[100] : styles.colors.amber[100], color: cls.availability === 'Available' ? styles.colors.green[700] : styles.colors.amber[700], borderRadius: '9999px', fontSize: '0.75rem', fontWeight: '600' }}>{cls.availability}</span>
+                        <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
+                          cls.availability === 'Available' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                        }`}>{cls.availability}</span>
                       </div>
                     ))}
                   </div>
@@ -215,31 +196,23 @@ export default function Enroll() {
               </Card>
 
               {/* Need Help */}
-              <Card style={{ border: 'none', boxShadow: styles.shadows.lg }}>
-                <CardContent style={{ padding: '1.5rem' }}>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Need Help?</h3>
-                  <p style={{ marginBottom: '1rem', color: styles.colors.gray[600] }}>Our admissions team is here to answer any questions about our programs, financial aid options, or the enrollment process.</p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <Phone style={{ color: styles.colors.welding[500], marginRight: '0.75rem', width: '20px', height: '20px' }} />
+              <Card className="fade-in shadow-lg">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg mb-4">Need Help?</h3>
+                  <p className="mb-4 text-gray-600">Our admissions team is here to answer any questions about programs, financial aid, or enrollment.</p>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-5 h-5 text-amber-500" />
                       <div>
-                        <h4 style={{ fontWeight: '600' }}>Call Us</h4>
-                        <p style={{ fontSize: '0.875rem', color: styles.colors.gray[600] }}>
-                          <a href="tel:+15551234567" style={{ color: styles.colors.welding[600], textDecoration: 'none', transition: styles.transitions.standard }}
-                            onMouseEnter={(e) => e.currentTarget.style.color = styles.colors.welding[700]}
-                            onMouseLeave={(e) => e.currentTarget.style.color = styles.colors.welding[600]}>+1 (555) 123-4567</a>
-                        </p>
+                        <h4 className="font-semibold">Call Us</h4>
+                        <a href="tel:+15551234567" className="text-amber-600 hover:text-amber-700 text-sm transition">+1 (555) 123-4567</a>
                       </div>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <Mail style={{ color: styles.colors.welding[500], marginRight: '0.75rem', width: '20px', height: '20px' }} />
+                    <div className="flex items-center gap-3">
+                      <Mail className="w-5 h-5 text-amber-500" />
                       <div>
-                        <h4 style={{ fontWeight: '600' }}>Email Us</h4>
-                        <p style={{ fontSize: '0.875rem', color: styles.colors.gray[600] }}>
-                          <a href="mailto:admissions@weldmasteracademy.com" style={{ color: styles.colors.welding[600], textDecoration: 'none', transition: styles.transitions.standard }}
-                            onMouseEnter={(e) => e.currentTarget.style.color = styles.colors.welding[700]}
-                            onMouseLeave={(e) => e.currentTarget.style.color = styles.colors.welding[600]}>admissions@weldmasteracademy.com</a>
-                        </p>
+                        <h4 className="font-semibold">Email Us</h4>
+                        <a href="mailto:admissions@weldmasteracademy.com" className="text-amber-600 hover:text-amber-700 text-sm transition">admissions@weldmasteracademy.com</a>
                       </div>
                     </div>
                   </div>
@@ -250,109 +223,87 @@ export default function Enroll() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section style={{ padding: '5rem 0', backgroundColor: styles.colors.gray[50] }}>
-        <div style={styles.container}>
-          <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 3rem auto' }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem', color: styles.colors.welding[800] }}>Frequently Asked Questions</h2>
-            <p style={{ color: styles.colors.gray[600] }}>Find answers to common questions about our enrollment process and programs.</p>
+      {/* FAQ */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl font-bold text-amber-800 mb-4">Frequently Asked Questions</h2>
+            <p className="text-gray-600">Find answers to common questions about enrollment and programs.</p>
           </div>
 
-          <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
+          <div className="max-w-3xl mx-auto space-y-4">
             <FaqItem 
+              index={0} 
               question="What are the payment options available?" 
               answer={
                 <div>
-                  <p>We offer several payment options to make our programs accessible:</p>
-                  <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-                    <li>Full payment with a 5% discount</li>
-                    <li>Monthly payment plans (0% interest)</li>
-                    <li>Private student loans through our partner financial institutions</li>
-                    <li>Workforce development grants for those who qualify</li>
+                  <p>We offer several payment options:</p>
+                  <ul className="list-disc pl-5 mt-2 mb-2 space-y-1">
+                    <li>Full payment with 5% discount</li>
+                    <li>Monthly plans (0% interest)</li>
+                    <li>Private student loans</li>
+                    <li>Workforce development grants</li>
                     <li>GI Bill benefits for veterans</li>
                   </ul>
-                  <p style={{ marginTop: '0.5rem' }}>Our financial aid office will work with you to find the best option for your situation.</p>
                 </div>
-              } 
-              index={0}
+              }
             />
             <FaqItem 
+              index={1} 
               question="What is the refund policy?" 
               answer={
                 <div>
-                  <p>Our refund policy is as follows:</p>
-                  <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-                    <li>100% refund if cancelled at least 14 days before the start date</li>
-                    <li>75% refund if cancelled 7-13 days before the start date</li>
-                    <li>50% refund if cancelled 1-6 days before the start date</li>
-                    <li>Pro-rated refund if withdrawn during the first week of classes</li>
-                    <li>No refund after the first week of classes</li>
+                  <ul className="list-disc pl-5 mt-2 space-y-1">
+                    <li>100% refund if cancelled ≥14 days before start</li>
+                    <li>75% refund if cancelled 7–13 days before start</li>
+                    <li>50% refund if cancelled 1–6 days before start</li>
+                    <li>Pro-rated refund during first week</li>
+                    <li>No refund after first week</li>
                   </ul>
-                  <p style={{ marginTop: '0.5rem' }}>Application fees are non-refundable. For full details, please review our enrollment agreement.</p>
                 </div>
-              } 
-              index={1}
+              }
             />
             <FaqItem 
+              index={2} 
               question="Is job placement assistance provided?" 
               answer={
                 <div>
-                  <p>Yes, we provide comprehensive job placement assistance to all graduates. Our services include:</p>
-                  <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-                    <li>Resume building and interview preparation</li>
-                    <li>Access to our network of over 200 industry partners</li>
-                    <li>Exclusive job fairs for WeldMaster Academy students and alumni</li>
-                    <li>Job matching based on your skills and preferences</li>
-                    <li>Ongoing career support even after graduation</li>
+                  <ul className="list-disc pl-5 mt-2 space-y-1">
+                    <li>Resume building & interview prep</li>
+                    <li>Access to 200+ industry partners</li>
+                    <li>Exclusive job fairs</li>
+                    <li>Job matching based on skills</li>
+                    <li>Ongoing career support post-graduation</li>
                   </ul>
-                  <p style={{ marginTop: '0.5rem' }}>Our job placement rate is 98% within six months of graduation.</p>
                 </div>
-              } 
-              index={2}
+              }
             />
           </div>
         </div>
       </section>
 
-      <Footer />
 
       {/* Success Modal */}
       {formSubmitted && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
-          <Card style={{ maxWidth: '28rem', margin: '0 auto', border: 'none' }}>
-            <CardContent style={{ padding: '2rem', textAlign: 'center', position: 'relative' }}>
-              <button onClick={handleCloseModal} style={{ position: 'absolute', top: '1rem', right: '1rem', color: styles.colors.gray[500], background: 'none', border: 'none', cursor: 'pointer', transition: styles.transitions.standard }}
-                onMouseEnter={(e) => e.currentTarget.style.color = styles.colors.welding[500]}
-                onMouseLeave={(e) => e.currentTarget.style.color = styles.colors.gray[500]}
-                aria-label="Close modal">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              <div style={{ width: '5rem', height: '5rem', backgroundColor: styles.colors.welding[50], color: styles.colors.welding[500], borderRadius: '50%', margin: '0 auto 1.5rem auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: styles.colors.welding[500], marginBottom: '1rem' }}>Application Submitted!</h3>
-              <p style={{ marginBottom: '1.5rem', color: styles.colors.gray[600] }}>Thank you for your interest in WeldMaster Academy. Your application has been successfully submitted. Our admissions team will contact you within 2 business days to discuss next steps.</p>
-
-              <Button onClick={handleCloseModal} style={{ backgroundColor: styles.colors.welding[500], color: styles.colors.welding[900], fontWeight: 'bold', padding: '0.5rem 1.5rem', borderRadius: '0.375rem', border: 'none', cursor: 'pointer', transition: styles.transitions.standard }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.colors.welding[400]}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = styles.colors.welding[500]}>Close</Button>
-            </CardContent>
+        <div 
+          className="fixed inset-0 bg-black/40 flex justify-center items-center z-50"
+          onClick={handleCloseModal}
+          aria-modal="true"
+        >
+          <Card onClick={(e) => e.stopPropagation()} className="p-10 max-w-md text-center">
+            <h3 className="text-2xl font-bold mb-4">Thank You!</h3>
+            <p className="mb-6 text-gray-700">Your application has been successfully submitted. We will contact you soon.</p>
+            <Button onClick={handleCloseModal} className="bg-amber-500 hover:bg-amber-400 text-amber-900 font-bold py-2 px-6 rounded-md">Close</Button>
           </Card>
         </div>
       )}
 
-      {/* Back to Top Button */}
-      <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ position: 'fixed', bottom: '2rem', right: '2rem', width: '3rem', height: '3rem', backgroundColor: styles.colors.welding[500], color: styles.colors.white, borderRadius: '9999px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: styles.shadows.lg, cursor: 'pointer', border: 'none', transition: styles.transitions.standard, zIndex: 40 }}
-        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = styles.colors.welding[600]; e.currentTarget.style.transform = 'translateY(-4px)'; }}
-        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = styles.colors.welding[500]; e.currentTarget.style.transform = 'translateY(0)'; }}
-        aria-label="Back to top">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      {/* Back to top */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-8 right-8 bg-amber-500 hover:bg-amber-400 text-amber-900 p-3 rounded-full shadow-lg transition"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
         </svg>
       </button>
