@@ -28,11 +28,11 @@ const HeroSection = () => {
               From beginners to professionals, our comprehensive programs provide hands-on training, certification preparation, and career advancement in all welding techniques.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button className="bg-black text-[#F8EE00] font-bold px-6 py-3 rounded-none shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-2xl hover:bg-black/90">
+              <Button className="bg-black text-[#F8EE00] font-bold px-6 py-3 rounded-none shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-2xl hover:bg-black/90 hover:cursor-pointer">
                 Explore Courses
               </Button>
 
-              <Button variant="outline" className="border-black text-black hover:bg-[#F8EE00]/10 hover:border-black hover:text-black hover:translate-y-[-4px] transition-transform rounded-none">
+              <Button variant="outline" className="border-black text-black hover:bg-[#F8EE00]/10 hover:border-black hover:text-black hover:translate-y-[-4px] transition-transform rounded-none hover:cursor-pointer">
                 Free Workshop <ArrowRight size={16} className="ml-2" />
               </Button>
             </div>
@@ -97,7 +97,7 @@ const HeroSection = () => {
                     <span className="text-xs text-gray-600">Starting at</span>
                     <p className="text-lg font-bold text-black">$299</p>
                   </div>
-                  <Button className="bg-black text-[#F8EE00] hover:bg-black/90 hover:-translate-y-1 transition-transform rounded-none">Enroll Now</Button>
+                  <Button className="bg-black text-[#F8EE00] hover:bg-black/90 hover:-translate-y-1 transition-transform rounded-none hover:cursor-pointer">Enroll Now</Button>
                 </div>
               </div>
             </div>
