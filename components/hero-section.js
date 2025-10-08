@@ -1,11 +1,12 @@
 'use client';
 import React from 'react'
 import { Button } from './ui/button'
-import { ArrowRight, Award, BookOpen, Users } from 'lucide-react'
+import { ArrowRight, GraduationCap, Wrench } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
 
 const HeroSection = () => {
-
+const router = useRouter()
   return (
     <div className="relative bg-gradient-to-b from-[#F8EE00]/10 to-white min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
 
@@ -19,35 +20,34 @@ const HeroSection = () => {
           {/* Left Content */}
           <div className="space-y-8 max-w-lg">
             <span className="inline-block py-1 px-3 rounded-full bg-[#F8EE00]/30 text-sm font-medium mb-4 text-black">
-              Premier Welding Education
+              FROM SPARK TO SUCCESS
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black">
-              Master the Art of <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-black/80">Welding</span> with Experts
+            <h1 className="text-xl md:text-2xl font-bold text-black">
+              YOUR PARTNER IN TRADES INNOVATION & <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-black/80">CAREER</span> DEVELOPMENT
             </h1>
             <p className="text-lg text-gray-700 max-w-md">
-              From beginners to professionals, our comprehensive programs provide hands-on training, certification preparation, and career advancement in all welding techniques.
+              We go beyond welding education , from professional training to industrial solutions. Skillworks welding helps you turn sparks into long term success in trades and manufacturing.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button className="bg-black text-[#F8EE00] font-bold px-6 py-3 rounded-none shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-2xl hover:bg-black/90 hover:cursor-pointer">
+              <Button className="bg-black text-[#F8EE00] font-bold px-6 py-3 rounded-none shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-2xl hover:bg-black/90 hover:cursor-pointer" onClick={() => router.push('/programs')}>
                 Explore Courses
               </Button>
 
-              <Button variant="outline" className="border-black text-black hover:bg-[#F8EE00]/10 hover:border-black hover:text-black hover:translate-y-[-4px] transition-transform rounded-none hover:cursor-pointer">
-                Free Workshop <ArrowRight size={16} className="ml-2" />
+              <Button variant="outline" className="border-black text-black hover:bg-[#F8EE00]/10 hover:border-black hover:text-black hover:translate-y-[-4px] transition-transform rounded-none hover:cursor-pointer" onClick={() => router.push('/contact')}>
+                Partner With US <ArrowRight size={16} className="ml-2" />
               </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 pt-4">
+           <div className="grid grid-cols-2 gap-4 pt-4">
               {[
-                { icon: Award, label: 'Certified' },
-                { icon: BookOpen, label: '20+ Courses' },
-                { icon: Users, label: '5000+ Students' }
+                { icon: Wrench, label: 'Career Ready Skills' },
+                { icon: GraduationCap, label: 'Expert Led Programs' },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col items-center">
                   <div className="w-12 h-12 rounded-full bg-[#F8EE00]/30 flex items-center justify-center mb-2">
                     <item.icon className="text-black" />
                   </div>
-                  <span className="font-bold text-black">{item.label}</span>
+                  <span className="font-bold text-black text-center">{item.label}</span>
                 </div>
               ))}
             </div>
