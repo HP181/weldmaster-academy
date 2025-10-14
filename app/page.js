@@ -31,14 +31,14 @@ export default function Home() {
               Why Choose Us
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">
-              Learn Welding from Industry Experts
+              Learn Welding as per Industrial Guidelines
             </h2>
             <p className="text-gray-700">
               Our comprehensive welding programs combine hands-on experience with expert instruction to prepare you for a successful career in welding.
             </p>
           </div>
           
-          <div className="space-y-24">
+          {/* <div className="space-y-24">
             <FeatureCard 
               title="State-of-the-Art Facilities"
               description="Train with the latest welding equipment in our modern facilities designed to simulate real-world working environments. Our workshops feature industry-standard tools and safety equipment to ensure you're learning with the best."
@@ -61,7 +61,7 @@ export default function Home() {
               icon={Award}
               image="https://images.unsplash.com/photo-1605512000489-4c923df5709d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80"
             />
-          </div>
+          </div> */}
         </div>
       </section>
       
@@ -74,21 +74,20 @@ export default function Home() {
                 Our Courses
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-black">
-                Popular Welding Programs
+                Popular & in-demand Skills
               </h2>
             </div>
             <Button variant="link" asChild className="text-black font-medium hover:text-black flex items-center gap-1">
-              <Link href="/features">
+              <Link href="/enroll">
                 View all courses <ArrowRight size={16} />
               </Link>
             </Button>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "MIG Welding Fundamentals", image: "https://images.unsplash.com/photo-1626668893629-e7fde9bd05fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1372&q=80", duration: "6 weeks", level: "Beginner" },
-              { title: "TIG Welding Mastery", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", duration: "8 weeks", level: "Intermediate", featured: true },
-              { title: "Advanced Pipe Welding", image: "https://images.unsplash.com/photo-1518241353330-927397a24b75?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80", duration: "10 weeks", level: "Advanced" }
+              { title: "MIG Welding Essential", image: "https://images.unsplash.com/photo-1626668893629-e7fde9bd05fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1372&q=80", level: "Beginner" },
+              { title: "TIG Welding Mastery", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", level: "Intermediate", featured: true },
+              { title: "Stick Welding Essential", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", level: "Intermediate", featured: true },
             ].map((course, index) => (
               <div key={index} className="group relative bg-white rounded-none overflow-hidden shadow-lg hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
                 {course.featured && (
@@ -106,7 +105,6 @@ export default function Home() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute bottom-4 left-4 z-10 flex space-x-2">
-                    <span className="bg-black/60 text-white text-xs py-1 px-2 rounded-none backdrop-blur-sm">{course.duration}</span>
                     <span className="bg-black/60 text-white text-xs py-1 px-2 rounded-none backdrop-blur-sm">{course.level}</span>
                   </div>
                 </div>
@@ -128,10 +126,10 @@ export default function Home() {
         </div>
       </section>
       
-      <TestimonialSection />
+      {/* <TestimonialSection /> */}
 
       {/* Stats Section */}
-      <section className="py-24 bg-[#FFFEF5] text-black">
+      {/* <section className="py-24 bg-[#FFFEF5] text-black">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
@@ -150,7 +148,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-24 bg-[#FFFEF5] relative overflow-hidden">

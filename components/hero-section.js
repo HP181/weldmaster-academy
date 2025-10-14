@@ -88,14 +88,14 @@ const router = useRouter()
                     ))}
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-black">MIG Welding Masterclass</h3>
+                <h3 className="text-xl font-bold mb-2 text-black">MIG Welding Essentials</h3>
                 <p className="text-gray-600 text-sm mb-4">
-                  Learn the fundamentals of MIG welding from industry experts and gain hands-on experience with real projects.
+                  Learn MIG welding essential class to gain hands-on experience of in-demand welding process.
                 </p>
                 <div className="flex justify-between items-center">
                   <div>
                     <span className="text-xs text-gray-600">Starting at</span>
-                    <p className="text-lg font-bold text-black">$299</p>
+                    <p className="text-lg font-bold text-black">$1699 - 10% off for limited time</p>
                   </div>
                   <Button className="bg-black text-[#F8EE00] hover:bg-black/90 hover:-translate-y-1 transition-transform rounded-none hover:cursor-pointer">Enroll Now</Button>
                 </div>
