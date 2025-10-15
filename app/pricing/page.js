@@ -4,8 +4,12 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function Pricing() {
+
+  const router = useRouter();
+
   const plans = [
     {
       name: 'Beginner Plan',
@@ -71,15 +75,19 @@ export default function Pricing() {
 
       {/* Pricing Section */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto">
+        <div className="container mx-auto flex flex-col items-center px-">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4 text-black">Flexible Plans for Every Welder</h2>
             <p className="text-gray-700 max-w-2xl mx-auto">
-              Whether you&apos;re starting out or preparing for certification, choose a plan that fits your welding journey.
+              At Skillworks, every student and client is unique. Schedule an initial consultation call to discusswith our expert to discuss your goal, identify your needs, and explore the program or solution that fit you best.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <Button className="w-auto md:w-sm bg-black text-[#F8EE00] hover:bg-black/90 rounded-lg hover:-translate-y-0.5 transition cursor-pointer" onClick={() => router.push('/contact')}>
+            Contact Here
+          </Button>
+
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {plans.map((plan, index) => (
               <Card
                 key={index}
@@ -113,7 +121,7 @@ export default function Pricing() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 

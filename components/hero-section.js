@@ -95,7 +95,8 @@ const router = useRouter()
                 <div className="flex justify-between items-center">
                   <div>
                     <span className="text-xs text-gray-600">Starting at</span>
-                    <p className="text-lg font-bold text-black">$1699 - 10% off for limited time</p>
+                    <p className="text-lg font-bold text-black">$1699</p>
+                    <span className="text-base font-bold text-red-500">10% off for limited time</span>
                   </div>
                   <Button className="bg-black text-[#F8EE00] hover:bg-black/90 hover:-translate-y-1 transition-transform rounded-none hover:cursor-pointer">Enroll Now</Button>
                 </div>

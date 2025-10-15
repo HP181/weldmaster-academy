@@ -31,7 +31,7 @@ export default function Home() {
               Why Choose Us
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">
-              Learn Welding as per Industrial Guidelines
+              Industry aligned training that works.
             </h2>
             <p className="text-gray-700">
               Our comprehensive welding programs combine hands-on experience with expert instruction to prepare you for a successful career in welding.
@@ -85,9 +85,9 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "MIG Welding Essential", image: "https://images.unsplash.com/photo-1626668893629-e7fde9bd05fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1372&q=80", level: "Beginner" },
-              { title: "TIG Welding Mastery", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", level: "Intermediate", featured: true },
-              { title: "Stick Welding Essential", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", level: "Intermediate", featured: true },
+              { title: "MIG Welding Essential", image: "https://images.unsplash.com/photo-1626668893629-e7fde9bd05fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1372&q=80", level: "Beginner", featured: false },
+              { title: "TIG Welding Mastery", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", level: "Intermediate", featured: false },
+              { title: "Stick Welding Essential", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", level: "Intermediate", featured: false },
             ].map((course, index) => (
               <div key={index} className="group relative bg-white rounded-none overflow-hidden shadow-lg hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
                 {course.featured && (
