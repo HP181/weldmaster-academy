@@ -56,11 +56,11 @@ const Footer = () => {
           <ul className="flex flex-col gap-3">
             <li className="flex items-center gap-3">
               <MapPin className="text-[#F8EE00]" />
-              <span className="text-white">123 Weld Street, Toronto, ON M5V 2K1</span>
+              <span className="text-white">1195 Franklin Blvd, Unit 08, Cambridge ON N1R 7R7, Canada</span>
             </li>
             <li className="flex items-center gap-3">
               <Phone className="text-[#F8EE00]" />
-              <span className="text-white">(416) 555-WELD</span>
+              <span className="text-white">+1 (249) 979-2155</span>
             </li>
             <li className="flex items-center gap-3">
               <Mail className="text-[#F8EE00]" />

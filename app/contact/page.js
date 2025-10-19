@@ -13,11 +13,67 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { MapPin, Phone, Mail, Clock, CheckCircle2 } from 'lucide-react'
+import { toast } from "sonner"
+import { Controller, useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
+} from "@/components/ui/dialog"
+
+// Define validation schema
+const formSchema = z.object({
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters long")
+    .trim(),
+  email: z
+    .string()
+    .email("Please provide a valid email address")
+    .trim(),
+  phone: z
+    .string()
+    .regex(/^(\+\d{1,3}[- ]?)?\d{10,14}$/, "Please provide a valid phone number")
+    .optional()
+    .or(z.literal("")),
+  subject: z
+    .enum(["Program Information", "Enrollment Questions", "Financial Aid", "Facility Tour", "Other"], {
+      errorMap: () => ({ message: "Please select a valid subject" })
+    }),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters long")
+    .trim(),
+})
 
 export default function Contact() {
-  const [formSubmitted, setFormSubmitted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false)
+
+  // Initialize form
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      subject: undefined,
+      message: "",
+    },
+  })
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768)
@@ -53,14 +109,45 @@ export default function Contact() {
     }
   }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setFormSubmitted(true)
+  const onSubmit = async (data) => {
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        // Handle validation errors from backend
+        if (result.errors) {
+          Object.keys(result.errors).forEach((field) => {
+            form.setError(field, { message: result.errors[field] })
+          })
+          toast("Please check your form entries, There were some validation errors.")
+          throw new Error("Validation failed")
+        }
+        throw new Error(result.error || "Failed to submit form")
+      }
+
+      // Success
+      setShowSuccessDialog(true)
+      form.reset()
+      // toast("Message sent successfully!, We'll get back to you soon.")
+    } catch (error) {
+      toast(` ${error.message ? error.message : "Something went wrong. Please try again." }`)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <main className="bg-white">
-
       {/* Banner */}
       <section className="bg-[#F8EE00] text-black py-24 text-center">
         <div className="container mx-auto px-4">
@@ -146,62 +233,140 @@ export default function Contact() {
               <Card className="shadow-xl rounded-none border border-gray-200">
                 <CardContent className="p-8">
                   <h3 className="text-xl font-bold mb-6 text-black">Send Us A Message</h3>
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'}`}>
-                      <div>
-                        <label className="block font-semibold mb-1 text-black">Your Name*</label>
-                        <Input 
-                          placeholder="John Doe" 
-                          required 
-                          className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-semibold mb-1 text-black">Email Address*</label>
-                        <Input 
-                          type="email" 
-                          placeholder="your@email.com" 
-                          required 
-                          className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-semibold mb-1 text-black">Phone Number</label>
-                        <Input 
-                          type="tel" 
-                          placeholder="+1 (555) 123-4567"
-                          className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-semibold mb-1 text-black">Subject*</label>
-                        <Select required>
-                          <SelectTrigger className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black">
-                            <SelectValue placeholder="Select a subject" />
-                          </SelectTrigger>
-                          <SelectContent className="rounded-none">
-                            <SelectItem value="program">Program Information</SelectItem>
-                            <SelectItem value="enrollment">Enrollment Questions</SelectItem>
-                            <SelectItem value="financial">Financial Aid</SelectItem>
-                            <SelectItem value="tour">Facility Tour</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
+                      <Controller
+                        name="name"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                          <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="contact-name" className="block font-semibold text-black">
+                              Your Name*
+                            </FieldLabel>
+                            <Input
+                              {...field}
+                              id="contact-name"
+                              placeholder="John Doe"
+                              aria-invalid={fieldState.invalid}
+                              className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
+                            />
+                            {fieldState.invalid && (
+                              <FieldError errors={[fieldState.error]} className="text-red-500 text-sm mt-1" />
+                            )}
+                          </Field>
+                        )}
+                      />
 
-                    <div>
-                      <label className="block font-semibold mb-1 text-black">Your Message*</label>
-                      <Textarea 
-                        placeholder="How can we help you?" 
-                        required 
-                        rows={5}
-                        className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
+                      <Controller
+                        name="email"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                          <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="contact-email" className="block font-semibold text-black">
+                              Email Address*
+                            </FieldLabel>
+                            <Input
+                              {...field}
+                              id="contact-email"
+                              type="email"
+                              placeholder="your@email.com"
+                              aria-invalid={fieldState.invalid}
+                              className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
+                            />
+                            {fieldState.invalid && (
+                              <FieldError errors={[fieldState.error]} className="text-red-500 text-sm mt-1" />
+                            )}
+                          </Field>
+                        )}
+                      />
+
+                      <Controller
+                        name="phone"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                          <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="contact-phone" className="block font-semibold text-black">
+                              Phone Number
+                            </FieldLabel>
+                            <Input
+                              {...field}
+                              id="contact-phone"
+                              type="tel"
+                              placeholder="+1 (555) 123-4567"
+                              aria-invalid={fieldState.invalid}
+                              className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
+                            />
+                            {fieldState.invalid && (
+                              <FieldError errors={[fieldState.error]} className="text-red-500 text-sm mt-1" />
+                            )}
+                          </Field>
+                        )}
+                      />
+
+                      <Controller
+                        name="subject"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                          <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="contact-subject" className="block font-semibold text-black">
+                              Subject*
+                            </FieldLabel>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <SelectTrigger
+                                id="contact-subject"
+                                aria-invalid={fieldState.invalid}
+                                className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
+                              >
+                                <SelectValue placeholder="Select a subject" />
+                              </SelectTrigger>
+                              <SelectContent className="rounded-none">
+                                <SelectItem value="Program Information">Program Information</SelectItem>
+                                <SelectItem value="Enrollment Questions">Enrollment Questions</SelectItem>
+                                <SelectItem value="Financial Aid">Financial Aid</SelectItem>
+                                <SelectItem value="Facility Tour">Facility Tour</SelectItem>
+                                <SelectItem value="Other">Other</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            {fieldState.invalid && (
+                              <FieldError errors={[fieldState.error]} className="text-red-500 text-sm mt-1" />
+                            )}
+                          </Field>
+                        )}
                       />
                     </div>
 
-                    <Button type="submit" className="w-full bg-black hover:bg-black/90 text-[#F8EE00] font-bold py-3 rounded-lg hover:-translate-y-0.5 transition cursor-pointer">
-                      Send Message
+                    <Controller
+                      name="message"
+                      control={form.control}
+                      render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                          <FieldLabel htmlFor="contact-message" className="block font-semibold text-black">
+                            Your Message*
+                          </FieldLabel>
+                          <Textarea
+                            {...field}
+                            id="contact-message"
+                            placeholder="How can we help you?"
+                            rows={5}
+                            aria-invalid={fieldState.invalid}
+                            className="rounded-none border-gray-300 focus:border-black focus:ring-1 focus:ring-black"
+                          />
+                          {fieldState.invalid && (
+                            <FieldError errors={[fieldState.error]} className="text-red-500 text-sm mt-1" />
+                          )}
+                        </Field>
+                      )}
+                    />
+
+                    <Button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full bg-black hover:bg-black/90 text-[#F8EE00] font-bold py-3 rounded-lg hover:-translate-y-0.5 transition cursor-pointer"
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 </CardContent>
@@ -211,6 +376,28 @@ export default function Contact() {
         </div>
       </section>
 
+      {/* Success Dialog */}
+      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto w-16 h-16 bg-[#F8EE00] rounded-full flex items-center justify-center mb-4">
+              <CheckCircle2 className="text-black" size={32} />
+            </div>
+            <DialogTitle className="text-center text-xl font-bold">Message Sent!</DialogTitle>
+            <DialogDescription className="text-center">
+              Thank you for contacting WeldMaster Academy. One of our team members will get back to you within 24 hours.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-center mt-4">
+            <Button 
+              onClick={() => setShowSuccessDialog(false)}
+              className="bg-black hover:bg-black/90 text-[#F8EE00] font-bold px-8"
+            >
+              Got it
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </main>
   )
 }
