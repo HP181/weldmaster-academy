@@ -15,7 +15,7 @@ export async function POST(request) {
       },
     });
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL || 'http://localhost:3000';
+    const appUrl = "https://www.skillworksweld.ca";
 
     const htmlTemplate = `
       <!DOCTYPE html>

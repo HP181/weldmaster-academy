@@ -60,15 +60,10 @@ const router = useRouter()
 
               {/* Video placeholder */}
               <div className="aspect-video w-full bg-gray-200 relative">
-                <div className="absolute inset-0 flex items-center justify-center bg-black/70">
-                  <div className="w-20 h-20 rounded-full bg-[#F8EE00] flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path d="M8 5V19L19 12L8 5Z" fill="black" />
-                    </svg>
-                  </div>
+                <div className="absolute inset-0 flex items-center justify-center">
                 </div>
                 <Image
-                  src="https://images.unsplash.com/photo-1625047509252-ab38fb7a8e4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                  src="/mig.jpg"
                   width={1000}
                   height={1000}
                   alt="Welding Demo"

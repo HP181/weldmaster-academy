@@ -85,9 +85,9 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "MIG Welding Essential", image: "https://images.unsplash.com/photo-1626668893629-e7fde9bd05fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1372&q=80", level: "Beginner", featured: false },
-              { title: "TIG Welding Mastery", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", level: "Intermediate", featured: false },
-              { title: "Stick Welding Essential", image: "https://images.unsplash.com/photo-1616362258063-108a9c3fa48a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80", level: "Intermediate", featured: false },
+              { title: "MIG Welding Essential", image: "/mig.jpg", level: "Beginner", featured: false },
+              { title: "TIG Welding Mastery", image: "/tig.jpg", level: "Intermediate", featured: false },
+              { title: "Stick Welding Essential", image: "/stick.jpg", level: "Intermediate", featured: false },
             ].map((course, index) => (
               <div key={index} className="group relative bg-white rounded-none overflow-hidden shadow-lg hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
                 {course.featured && (
@@ -102,7 +102,7 @@ export default function Home() {
                     width={1000}
                     height={1000}
                     alt={course.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-fill object-center group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute bottom-4 left-4 z-10 flex space-x-2">
                     <span className="bg-black/60 text-white text-xs py-1 px-2 rounded-none backdrop-blur-sm">{course.level}</span>
