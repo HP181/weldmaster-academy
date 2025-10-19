@@ -6,18 +6,19 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 import Logo from './Logo';
+import { useUser, UserButton, SignInButton } from '@clerk/nextjs';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const navRef = useRef(null);
+  const { isSignedIn } = useUser();
 
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Programs', href: '/enroll' },
-    // { name: 'Programs', href: '/programs' },
     { name: 'Pricing', href: '/pricing' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -70,15 +71,32 @@ const Navbar = () => {
               </Link>
             );
           })}
-          <Button 
-            className={`font-bold px-6 py-2.5 rounded-lg hover:-translate-y-0.5 cursor-pointer transition-all ${
-              scrolled
-                ? 'bg-[#F8EE00] text-black hover:bg-yellow-300'
-                : 'bg-black text-[#F8EE00] hover:bg-[#222222]'
-            }`}
-          >
-            Start Learning
-          </Button>
+
+          {/* Auth Section */}
+          {isSignedIn ? (
+            <UserButton
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: scrolled
+                    ? { border: '2px solid #F8EE00' }
+                    : { border: '2px solid black' },
+                },
+              }}
+              afterSignOutUrl="/"
+            />
+          ) : (
+            <SignInButton mode="modal">
+              <Button
+                className={`font-bold px-6 py-2.5 rounded-lg hover:-translate-y-0.5 cursor-pointer transition-all ${
+                  scrolled
+                    ? 'bg-[#F8EE00] text-black hover:bg-yellow-300'
+                    : 'bg-black text-[#F8EE00] hover:bg-[#222222]'
+                }`}
+              >
+                Start Learning
+              </Button>
+            </SignInButton>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -121,15 +139,25 @@ const Navbar = () => {
               </Link>
             );
           })}
-          <Button 
-            className={`w-full font-bold py-2.5 mt-2 rounded-none transition-all ${
-              scrolled
-                ? 'bg-[#F8EE00] text-black hover:bg-yellow-300'
-                : 'bg-black text-[#F8EE00] hover:bg-[#222222]'
-            }`}
-          >
-            Start Learning
-          </Button>
+
+          {/* Mobile Auth */}
+          {isSignedIn ? (
+            <div className="flex justify-center mt-3">
+              <UserButton afterSignOutUrl="/" />
+            </div>
+          ) : (
+            <SignInButton mode="modal">
+              <Button 
+                className={`w-full font-bold py-2.5 mt-2 rounded-none transition-all ${
+                  scrolled
+                    ? 'bg-[#F8EE00] text-black hover:bg-yellow-300'
+                    : 'bg-black text-[#F8EE00] hover:bg-[#222222]'
+                }`}
+              >
+                Start Learning
+              </Button>
+            </SignInButton>
+          )}
         </div>
       </div>
     </nav>

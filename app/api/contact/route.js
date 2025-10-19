@@ -28,7 +28,7 @@ export async function POST(request) {
         await newContact.save();
         
         // Trigger email notification in background
-        fetch(`${process.env.NEXT_PUBLIC_API_URL || process.env.VERCEL_URL || 'http://localhost:3000'}/api/send-email`, {
+        fetch("https://www.skillworksweld.ca/api/send-email", {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

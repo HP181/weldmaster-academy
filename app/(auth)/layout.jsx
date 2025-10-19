@@ -12,7 +12,7 @@ export const metadata = {
 
 
 const AuthLayout = ({ children }) => {
-  return <div className="flex justify-center items-center relative min-h-screen">{children}</div>;
+  return <div className="flex justify-center items-center relative min-h-screen mt-14">{children}</div>;
 };
 
 export default AuthLayout;
