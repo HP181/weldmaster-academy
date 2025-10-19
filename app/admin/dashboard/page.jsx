@@ -386,7 +386,7 @@ export default function AdminDashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto p-6">
+      <main className="container mx-auto p-6 mt-5">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg md:text-xl">Contact Form Submissions</CardTitle>
